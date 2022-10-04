@@ -1,5 +1,8 @@
-import { useQuery } from '@vue/apollo-composable'
+import { apolloClient } from '@/apolloClient'
+import { provideApolloClient, useMutation, useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
+
+provideApolloClient(apolloClient)
 
 export const getHomePosts = async () => {
   const query = gql`
@@ -113,4 +116,17 @@ export const getPostContent = async (slug: string) => {
     }
   `
   return useQuery(query, { slug })
+}
+
+export const addComment = async (name: string, email: string, comment: string, slug: string) => {
+  const mutation = gql`
+    mutation createComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
+      createComment(
+        data: { name: $name, email: $email, comment: $comment, post: { connect: { slug: $slug } } }
+      ) {
+        id
+      }
+    }
+  `
+  return useMutation(mutation, { variables: { name, email, comment, slug } })
 }

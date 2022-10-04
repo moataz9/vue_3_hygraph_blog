@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { PostContent, PostWidget, CategoriesWidget, Author } from '@/components'
+import { PostContent, PostWidget, CategoriesWidget, Author, CommentsForm } from '@/components'
 import { getPostContent } from '@/serives'
 import { onMounted, ref, watch } from 'vue'
-import type { author, post } from '@/types'
+import type { post } from '@/types'
 
 const route = useRoute()
 const currentSlug = route.params.slug as string
@@ -26,6 +26,7 @@ onMounted(() => {
       <div class="col-span-1 lg:col-span-8">
         <PostContent :post="post" />
         <Author :author="post?.author" />
+        <CommentsForm />
       </div>
       <div class="col-span-1 lg:col-span-4">
         <div class="relative lg:sticky top-8">
