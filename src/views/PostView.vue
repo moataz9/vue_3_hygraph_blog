@@ -6,18 +6,20 @@ import { onMounted, ref, watch } from 'vue'
 import type { post } from '@/types'
 
 const route = useRoute()
-const currentSlug = route.params.slug as string
 
 const post = ref<post | undefined>(undefined)
 
-onMounted(() => {
-  getPostContent(currentSlug).then(({ result }) => {
-    watch(result, () => {
-      post.value = result.value?.post
-    })
+const call = async (slug: string) => {
+  const { result } = await getPostContent(slug)
+  watch(result, () => {
     post.value = result.value?.post
   })
-})
+  post.value = result.value?.post
+}
+
+onMounted(() => call(route.params.slug as string))
+
+watch(route, () => call(route.params.slug as string))
 </script>
 
 <template>
