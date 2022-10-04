@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { PostContent, PostWidget, CategoriesWidget, Author, CommentsForm } from '@/components'
-import { getPostContent } from '@/serives'
+import { getPostContent } from '@/services'
 import { onMounted, ref, watch } from 'vue'
 import type { post } from '@/types'
 

@@ -2,7 +2,7 @@
 import type { category } from '@/types'
 import { onMounted, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
-import { getCategories } from '@/serives'
+import { getCategories } from '@/services'
 
 const categories = ref<category[]>([])
 onMounted(() => {

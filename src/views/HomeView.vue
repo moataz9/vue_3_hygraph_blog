@@ -2,7 +2,7 @@
 import type { post } from '@/types'
 import { onMounted, ref, watch } from 'vue'
 
-import { getHomePosts } from '@/serives'
+import { getHomePosts } from '@/services'
 import { PostCard, PostWidget, CategoriesWidget } from '@/components'
 
 const posts = ref<post[]>([])

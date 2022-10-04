@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { post } from '@/types'
 import { onMounted, ref, watch, type PropType } from 'vue'
-import { getSimilarPosts, getRecentPosts } from '@/serives'
+import { getSimilarPosts, getRecentPosts } from '@/services'
 import moment from 'moment'
 
 const { slug, categoriesNames } = defineProps({

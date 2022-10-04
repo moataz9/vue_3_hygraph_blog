@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { addComment } from '@/serives'
+import { addComment } from '@/services'
 
 const comment = ref('')
 const name = ref('')
 const email = ref('')
 const storeData = ref(false)
+
+onMounted(() => {
+  name.value = localStorage.getItem('name')!
+  email.value = localStorage.getItem('email')!
+  storeData.value = localStorage.getItem('storeData') ? true : false
+})
 
 const hasError = ref(false)
 const showSuccessMsg = ref(false)
@@ -15,7 +21,18 @@ const route = useRoute()
 const currentSlug = route.params.slug as string
 
 const submitComment = () => {
-  if (name.value || email.value || comment.value) {
+  if (storeData.value) {
+    localStorage.setItem('name', name.value)
+    localStorage.setItem('email', email.value)
+    localStorage.setItem('storeData', String(storeData.value))
+  } else {
+    localStorage.removeItem('name')
+    localStorage.removeItem('email')
+    localStorage.removeItem('storeData')
+  }
+
+  if (name.value.length && email.value.length && comment.value.length) {
+    console.log(true)
     addComment(name.value, email.value, comment.value, currentSlug).then(({ mutate }) => mutate())
   } else {
     hasError.value = true
