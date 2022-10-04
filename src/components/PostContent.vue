@@ -62,6 +62,8 @@ defineProps({
             {{ child.text }}
           </span>
         </p>
+        <br>
+        <br>
       </div>
     </div>
   </div>
