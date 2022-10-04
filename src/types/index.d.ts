@@ -32,6 +32,7 @@ export type comment = {
 }
 
 export type post = {
+  id: string
   author: author
   excerpt: string
   createdAt: string
