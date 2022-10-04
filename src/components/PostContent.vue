@@ -49,21 +49,20 @@ defineProps({
       </div>
       <h1 class="mb-8 text-3xl font-semibold">{{ post?.title }}</h1>
       <div v-for="(childGroup, index) in post?.content?.json.children" :key="index">
-        <p class="inline" v-for="child in childGroup.children">
-          <span
-            :class="{
-              'text-lg my-1': true,
-              'font-bold': child.bold,
-              'underline': child.underline,
-              'italic': child.italic,
-              'inline-block px-2 bg-slate-300 rounded-lg': child.code,
-            }"
-          >
-            {{ child.text }}
-          </span>
-        </p>
-        <br>
-        <br>
+        <span
+          v-for="child in childGroup.children"
+          :class="{
+            'text-lg my-1': true,
+            'font-bold': child.bold,
+            'underline': child.underline,
+            'italic': child.italic,
+            'inline-block px-2 bg-slate-300 rounded-lg': child.code,
+          }"
+        >
+          {{ child.text }}
+        </span>
+        <br />
+        <br />
       </div>
     </div>
   </div>
