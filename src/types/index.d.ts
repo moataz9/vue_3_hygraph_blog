@@ -8,6 +8,7 @@ export type photo = {
   url: string
 }
 export type category = {
+  id: string
   name: string
   slug: string
 }
