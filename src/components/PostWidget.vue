@@ -39,9 +39,7 @@ onMounted(() => {
         <img
           :src="relatedPost.featuredImage.url"
           :alt="relatedPost.title"
-          height="60"
-          width="60"
-          class="align-middle rounded-full"
+          class="align-middle rounded-full w-14 h-14"
         />
       </div>
       <div class="flex-grow ml-4">
