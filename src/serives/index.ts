@@ -77,7 +77,40 @@ export const getRecentPosts = async () => {
           url
         }
       }
-    } 
+    }
   `
   return useQuery(query)
+}
+
+export const getPostContent = async (slug: string) => {
+  const query = gql`
+    query getPostContent($slug: String!) {
+      post(where: { slug: $slug }) {
+        author {
+          id
+          bio
+          name
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        categories {
+          id
+          name
+          slug
+        }
+        content {
+          json
+        }
+      }
+    }
+  `
+  return useQuery(query, { slug })
 }

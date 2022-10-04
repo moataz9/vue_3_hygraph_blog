@@ -17,12 +17,18 @@ export type content = {
   raw: {
     children: children[]
   }
+  json: {
+    children: children[]
+  }
 }
 
 export type children = {
   type?: string
   code?: boolean
   text: string[]
+  bold: boolean
+  underline: boolean
+  italic: boolean
   children?: children[]
 }
 
