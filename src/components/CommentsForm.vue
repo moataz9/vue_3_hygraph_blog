@@ -20,7 +20,7 @@ const showSuccessMsg = ref(false)
 const route = useRoute()
 const currentSlug = route.params.slug as string
 
-const submitComment = () => {
+const submitComment = async () => {
   if (storeData.value) {
     localStorage.setItem('name', name.value)
     localStorage.setItem('email', email.value)
@@ -32,8 +32,12 @@ const submitComment = () => {
   }
 
   if (name.value.length && email.value.length && comment.value.length) {
-    console.log(true)
-    addComment(name.value, email.value, comment.value, currentSlug).then(({ mutate }) => mutate())
+    const { mutate, onDone } = await addComment(name.value, email.value, comment.value, currentSlug)
+    mutate()
+    onDone(() => {
+      showSuccessMsg.value = true
+      setTimeout(() => (showSuccessMsg.value = false), 3000)
+    })
   } else {
     hasError.value = true
     setTimeout(() => (hasError.value = false), 3000)
