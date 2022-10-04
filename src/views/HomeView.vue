@@ -3,7 +3,7 @@ import type { post } from '@/types'
 import { onMounted, ref, watch } from 'vue'
 
 import { getHomePosts } from '@/serives'
-import { PostCard, PostWidget } from '@/components'
+import { PostCard, PostWidget, CategoriesWidget } from '@/components'
 
 const posts = ref<post[]>([])
 onMounted(() => {
@@ -26,7 +26,7 @@ onMounted(() => {
     <div class="lg:col-span-4 col-span-1">
       <div class="lg:sticky relative top-8">
         <PostWidget />
-        <!-- CategoriesWidget -->
+        <CategoriesWidget />
       </div>
     </div>
   </main>
