@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { PostContent, PostWidget, CategoriesWidget, Author, CommentsForm, Comments } from '@/components'
+import {
+  PostContent,
+  PostWidget,
+  CategoriesWidget,
+  Author,
+  CommentsForm,
+  Comments,
+  Loader,
+} from '@/components'
 import { getPostContent, getComments } from '@/services'
 import { onMounted, ref, watch } from 'vue'
 import type { comment, post } from '@/types'
@@ -32,15 +40,21 @@ watch(route, () => call(route.params.slug as string))
   <div class="container mx-auto only:sm:px-10 mb-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
       <div class="col-span-1 lg:col-span-8">
-        <PostContent :post="post" />
-        <Author :author="post?.author" />
-        <CommentsForm />
-        <Comments :comments="comments" />
+        <template v-if="post">
+          <PostContent :post="post" />
+          <Author :author="post?.author" />
+          <CommentsForm />
+          <Comments :comments="comments" />
+        </template>
+        <Loader v-else />
       </div>
       <div class="col-span-1 lg:col-span-4">
         <div class="relative lg:sticky top-8">
-          <PostWidget :slug="post?.slug" :categoriesNames="post?.categories.map(({ slug }) => slug)" />
-          <CategoriesWidget />
+          <template v-if="post">
+            <PostWidget :slug="post?.slug" :categoriesNames="post?.categories.map(({ slug }) => slug)" />
+            <CategoriesWidget />
+          </template>
+          <Loader v-else />
         </div>
       </div>
     </div>
