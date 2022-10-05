@@ -144,3 +144,26 @@ export const getComments = async (slug: string) => {
   `
   return useQuery(query, { slug })
 }
+
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query getFeaturedPosts {
+      posts(where: { featuredPost: true }, last: 10) {
+        id
+        author {
+          name
+          photo {
+            url
+          }
+        }
+        featuredImage {
+          url
+        }
+        title
+        slug
+        createdAt
+      }
+    }
+  `
+  return useQuery(query)
+}
