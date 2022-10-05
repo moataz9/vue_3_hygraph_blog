@@ -130,3 +130,17 @@ export const addComment = async (name: string, email: string, comment: string, s
   `
   return useMutation(mutation, { variables: { name, email, comment, slug } })
 }
+
+export const getComments = async (slug: string) => {
+  const query = gql`
+    query getComments($slug: String!) {
+      comments(where: { post: { slug: $slug } }) {
+        id
+        name
+        createdAt
+        comment
+      }
+    }
+  `
+  return useQuery(query, { slug })
+}

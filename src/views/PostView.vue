@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { PostContent, PostWidget, CategoriesWidget, Author, CommentsForm } from '@/components'
-import { getPostContent } from '@/services'
+import { PostContent, PostWidget, CategoriesWidget, Author, CommentsForm, Comments } from '@/components'
+import { getPostContent, getComments } from '@/services'
 import { onMounted, ref, watch } from 'vue'
-import type { post } from '@/types'
+import type { comment, post } from '@/types'
 
 const route = useRoute()
 
 const post = ref<post | undefined>(undefined)
+const comments = ref<comment[]>([])
 
 const call = async (slug: string) => {
-  const { result } = await getPostContent(slug)
-  watch(result, () => {
-    post.value = result.value?.post
+  const { result: postData } = await getPostContent(slug)
+  const { result: commentsData } = await getComments(slug)
+  watch(postData, () => {
+    post.value = postData.value?.post
   })
-  post.value = result.value?.post
+  watch(commentsData, () => {
+    comments.value = commentsData.value?.comments
+  })
+  post.value = postData.value?.post
+  comments.value = commentsData.value?.comments
 }
 
 onMounted(() => call(route.params.slug as string))
@@ -29,6 +35,7 @@ watch(route, () => call(route.params.slug as string))
         <PostContent :post="post" />
         <Author :author="post?.author" />
         <CommentsForm />
+        <Comments :comments="comments" />
       </div>
       <div class="col-span-1 lg:col-span-4">
         <div class="relative lg:sticky top-8">
