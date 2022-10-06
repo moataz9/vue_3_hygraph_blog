@@ -73,7 +73,10 @@ const settings = ref({
 // slider icons
 .carousel__next,
 .carousel__prev {
-  @apply text-center p-3 cursor-pointer bg-pink-600 rounded-full;
+  @apply text-center p-3 cursor-pointer bg-pink-600 rounded-full ring-1 ring-green-800;
+  .carousel__icon {
+    opacity: 0;
+  }
 }
 .carousel__next {
   background-image: url('@/assets/icons/round-arrow-right-icon.svg') !important;
