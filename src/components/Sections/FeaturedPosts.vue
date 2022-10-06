@@ -19,45 +19,8 @@ onMounted(() => {
   const carousel__prev = document.querySelector('.carousel__prev')!
 
   if (carousel__next && carousel__prev) {
-    let buttonClass = 'text-center p-3 cursor-pointer bg-pink-600 rounded-full'
-    buttonClass.split(' ').forEach(item => {
-      carousel__next.classList.add(item)
-      carousel__prev.classList.add(item)
-    })
-
-    carousel__next.innerHTML = `
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white carousel__icon'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M14 5l7 7m0 0l-7 7m7-7H3'
-      />
-    </svg>
-    `
-
-    carousel__prev.innerHTML = `
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      className='h-6 w-6 text-white carousel__icon'
-      fill='none'
-      viewBox='0 0 24 24'
-      stroke='currentColor'
-    >
-      <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-        d='M10 19l-7-7m0 0l7-7m-7 7h18'
-      />
-    </svg>
-    `
+    carousel__next.innerHTML = ''
+    carousel__prev.innerHTML = ''
   }
 })
 
@@ -99,12 +62,23 @@ const settings = ref({
     <Slide v-for="post in featuredPosts" :key="post.id">
       <FeaturedPostCard :post="post" />
     </Slide>
-    <template #addons="{ slidesCount }">
-      <Navigation v-if="slidesCount > 3" />
+    <template #addons>
+      <Navigation v-if="featuredPosts.length > 3" />
     </template>
   </Carousel>
 </template>
 
 <style lang="scss">
 @import 'vue3-carousel/dist/carousel.css';
+// slider icons
+.carousel__next,
+.carousel__prev {
+  @apply text-center p-3 cursor-pointer bg-pink-600 rounded-full;
+}
+.carousel__next {
+  background-image: url('@/assets/icons/round-arrow-right-icon.svg') !important;
+}
+.carousel__prev {
+  background-image: url('@/assets/icons/round-arrow-left-icon.svg') !important;
+}
 </style>
