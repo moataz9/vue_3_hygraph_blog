@@ -14,14 +14,6 @@ onMounted(() => {
     })
     featuredPosts.value = result.value?.posts
   })
-
-  const carousel__next = document.querySelector('.carousel__next')!
-  const carousel__prev = document.querySelector('.carousel__prev')!
-
-  if (carousel__next && carousel__prev) {
-    carousel__next.innerHTML = ''
-    carousel__prev.innerHTML = ''
-  }
 })
 
 const settings = ref({
@@ -58,7 +50,7 @@ const settings = ref({
 </script>
 
 <template>
-  <Carousel :settings="settings" class="mb-8">
+  <Carousel :settings="settings" class="mb-8" v-if="featuredPosts.length">
     <Slide v-for="post in featuredPosts" :key="post.id">
       <FeaturedPostCard :post="post" />
     </Slide>
